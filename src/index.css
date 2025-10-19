@@ -1,0 +1,539 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', monospace;
+  background-color: #FFFFFF;
+  color: #2D3748;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark body {
+  background-color: #0F1419;
+  color: #E5E7EB;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00D9FF;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #39FF14;
+}
+
+/* Cursor styles */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background-color: #00D9FF;
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+}
+
+/* Glitch effect */
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.glitch:hover::before {
+  animation: glitch-1 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  color: #00D9FF;
+  z-index: -1;
+}
+
+.glitch:hover::after {
+  animation: glitch-2 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  color: #39FF14;
+  z-index: -2;
+}
+
+@keyframes glitch-1 {
+  0% {
+    transform: translate(0);
+    opacity: 0.7;
+  }
+  20% {
+    transform: translate(-2px, 2px);
+    opacity: 0.7;
+  }
+  40% {
+    transform: translate(-2px, -2px);
+    opacity: 0.7;
+  }
+  60% {
+    transform: translate(2px, 2px);
+    opacity: 0.7;
+  }
+  80% {
+    transform: translate(2px, -2px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(0);
+    opacity: 0.7;
+  }
+}
+
+@keyframes glitch-2 {
+  0% {
+    transform: translate(0);
+    opacity: 0.7;
+  }
+  20% {
+    transform: translate(2px, -2px);
+    opacity: 0.7;
+  }
+  40% {
+    transform: translate(2px, 2px);
+    opacity: 0.7;
+  }
+  60% {
+    transform: translate(-2px, -2px);
+    opacity: 0.7;
+  }
+  80% {
+    transform: translate(-2px, 2px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(0);
+    opacity: 0.7;
+  }
+}
+
+/* Scanline overlay */
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 0, 0, 0.02) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 9999;
+  animation: scan 8s linear infinite;
+}
+
+@keyframes scan {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+/* Terminal window styles */
+.terminal-window {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 250, 250, 0.95) 100%);
+  border: 2px solid #E5E5E5;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.terminal-header {
+  background: #2D3748;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.terminal-button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.terminal-button.red {
+  background: #FF6B6B;
+}
+
+.terminal-button.yellow {
+  background: #FFD93D;
+}
+
+.terminal-button.green {
+  background: #39FF14;
+}
+
+/* Code syntax highlighting */
+.syntax-keyword {
+  color: #B794F6;
+  font-weight: 600;
+}
+
+.syntax-string {
+  color: #39FF14;
+}
+
+.syntax-function {
+  color: #00D9FF;
+}
+
+.syntax-comment {
+  color: #718096;
+  font-style: italic;
+}
+
+.syntax-number {
+  color: #FF6B6B;
+}
+
+/* Typewriter effect */
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 3s steps(40, end);
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* Loading bar animation */
+.loading-bar {
+  height: 4px;
+  background: #F5F5F5;
+  overflow: hidden;
+  position: relative;
+}
+
+.loading-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #00D9FF, #39FF14, #B794F6);
+  animation: load 2s ease-in-out forwards;
+}
+
+@keyframes load {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* Smooth link underline animation */
+.link-underline {
+  position: relative;
+  text-decoration: none;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00D9FF, #39FF14);
+  transition: width 0.3s ease;
+}
+
+.link-underline:hover::after {
+  width: 60%;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #00D9FF 0%, #B794F6 50%, #39FF14 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glassmorphism card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(229, 229, 229, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* Selection */
+::selection {
+  background: #00D9FF;
+  color: #1A202C;
+}
+
+::-moz-selection {
+  background: #00D9FF;
+  color: #1A202C;
+}
+
+/* Focus visible */
+*:focus-visible {
+  outline: 2px solid #00D9FF;
+  outline-offset: 2px;
+}
+
+/* ============================================
+   DARK MODE STYLES
+   ============================================ */
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+  background: #1A1F2E;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #00D9FF;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #39FF14;
+}
+
+/* Dark mode terminal windows */
+.dark .terminal-window {
+  background: linear-gradient(135deg, rgba(26, 31, 46, 0.95) 0%, rgba(15, 20, 25, 0.95) 100%);
+  border: 2px solid #374151;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.dark .terminal-header {
+  background: #1F2937;
+}
+
+/* Dark mode backgrounds */
+.dark section {
+  background-color: transparent !important;
+}
+
+.dark #projects {
+  background-color: rgba(15, 20, 25, 0.5) !important;
+}
+
+.dark #home {
+  background-color: transparent !important;
+}
+
+/* Convert explicit white backgrounds to dark */
+.dark .bg-white {
+  background-color: #0F1419 !important;
+}
+
+/* Dark mode text colors */
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6 {
+  color: #F3F4F6 !important;
+}
+
+.dark p,
+.dark span,
+.dark div {
+  color: #D1D5DB;
+}
+
+/* Dark mode syntax */
+.dark .syntax-comment {
+  color: #9CA3AF;
+}
+
+.dark .syntax-string {
+  color: #39FF14;
+}
+
+.dark .syntax-keyword {
+  color: #B794F6;
+}
+
+/* Dark mode borders */
+.dark .border-charcoal-800,
+.dark .border-charcoal-800\/20,
+.dark .border-charcoal-800\/30 {
+  border-color: #374151 !important;
+}
+
+/* Dark mode hover effects */
+.dark .hover\:border-electric:hover {
+  border-color: #00D9FF !important;
+}
+
+.dark .hover\:text-electric:hover {
+  color: #00D9FF !important;
+}
+
+/* Dark mode cards and sections - inverted for proper contrast */
+.dark .bg-cream-100 {
+  background-color: #1A1F2E !important;
+}
+
+.dark .bg-cream-200 {
+  background-color: #1F2937 !important;
+}
+
+.dark .bg-cream-200\/50 {
+  background-color: rgba(26, 31, 46, 0.5) !important;
+}
+
+/* Keep charcoal backgrounds dark in dark mode */
+.dark .bg-charcoal-900 {
+  background-color: #0F1419 !important;
+}
+
+.dark .bg-charcoal-800 {
+  background-color: #1A1F2E !important;
+}
+
+/* Dark mode text utilities - invert for readability */
+.dark .text-charcoal-900,
+.dark .text-charcoal-800 {
+  color: #F3F4F6 !important;
+}
+
+.dark .text-cream-100 {
+  color: #E5E7EB !important;
+}
+
+.dark .text-cream-200 {
+  color: #D1D5DB !important;
+}
+
+/* Dark mode glass card */
+.dark .glass-card {
+  background: rgba(26, 31, 46, 0.7);
+  border: 1px solid rgba(55, 65, 81, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Dark mode selection */
+.dark ::selection {
+  background: #00D9FF;
+  color: #0F1419;
+}
+
+.dark ::-moz-selection {
+  background: #00D9FF;
+  color: #0F1419;
+}
+
+/* Dark mode loading bar */
+.dark .loading-bar {
+  background: #1F2937;
+}
+
+/* Dark mode scanlines - lighter in dark mode */
+.dark .scanlines {
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(255, 255, 255, 0.01) 50%
+  );
+}
+
+/* Dark mode gradient text */
+.dark .gradient-text {
+  background: linear-gradient(135deg, #00D9FF 0%, #B794F6 50%, #39FF14 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Dark mode footer */
+.dark footer {
+  background-color: #0F1419 !important;
+  border-top: 1px solid #374151;
+}
+
+/* Dark mode navigation */
+.dark nav {
+  background-color: rgba(15, 20, 25, 0.95) !important;
+  border-bottom: 2px solid rgba(55, 65, 81, 0.3) !important;
+}
+
+/* Dark mode button hovers */
+.dark .bg-charcoal-900:hover {
+  background-color: #00D9FF !important;
+  color: #0F1419 !important;
+}
+
+/* Dark mode input fields */
+.dark input,
+.dark textarea {
+  background-color: #1A1F2E !important;
+  border-color: #374151 !important;
+  color: #E5E7EB !important;
+}
+
+.dark input:focus,
+.dark textarea:focus {
+  border-color: #00D9FF !important;
+}
+
+/* Dark mode pills/badges */
+.dark .border-charcoal-800\/30:not(:hover) {
+  background-color: rgba(31, 41, 55, 0.3);
+}
+
+/* Dark mode hero background grid */
+.dark #home .absolute.inset-0 {
+  opacity: 0.05 !important;
+}
+
+/* Dark mode name gradient */
+.dark .bg-gradient-to-r.from-charcoal-900 {
+  background: linear-gradient(to right, #F3F4F6, #D1D5DB, #F3F4F6) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
