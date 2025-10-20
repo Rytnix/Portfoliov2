@@ -7,7 +7,7 @@ const PaperChat = ({ isOpen, onClose, paper }) => {
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
-  const [genAiEndpoint] = useState('http://45.194.47.156:11434');
+  const [genAiEndpoint] = useState('https://45.194.47.156:11434');
   const [ollamaModel] = useState('mistral-nemo:latest');
 
   // Reset state when paper changes

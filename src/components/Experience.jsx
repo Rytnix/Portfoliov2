@@ -11,45 +11,34 @@ const Experience = () => {
   const experiences = [
     {
       hash: 'a3f5c21',
-      role: 'SDE1 - ML/Gen AI',
-      company: 'Tech Company',
-      period: '2023 - Present',
-      description: 'Building and deploying production-ready ML models and Gen AI applications',
+      role: 'Software Development Engineer - ML & Gen AI',
+      company: 'Proeffico Solutions Private Limited',
+      location: 'Noida, India',
+      period: 'March 2024 - Present',
+      description: 'Leading ML/Gen AI team developing production-grade computer vision and GenAI solutions',
       achievements: [
-        'Developed LLM-powered chatbot improving customer engagement by 40%',
-        'Implemented RAG pipeline for document processing with 95% accuracy',
-        'Optimized ML inference reducing latency by 60%',
-        'Led team of 3 engineers in AI feature development'
+        'Redesigned facial recognition pipeline reducing latency from 40+ seconds to under 1 second',
+        'Engineered Redis-based vector storage retrieving embeddings from 100K+ database in <200ms',
+        'Built production-grade REST APIs handling 1000+ daily requests with 99.5% uptime',
+        'Architected Gen AI document generator achieving 70% accuracy on technical specifications',
+        'Led cross-functional team of 5 engineers on Gen AI-powered solutions'
       ],
-      tech: ['Python', 'TensorFlow', 'LangChain', 'AWS', 'Docker']
+      tech: ['Python', 'OpenCV', 'TensorFlow', 'Redis', 'Flask', 'Docker', 'Gen AI']
     },
     {
       hash: 'b7e2d89',
-      role: 'ML Engineer Intern',
-      company: 'AI Startup',
-      period: '2022 - 2023',
-      description: 'Developed computer vision and NLP solutions for various client projects',
+      role: 'Software Engineer Intern',
+      company: 'Proeffico Solutions Private Limited',
+      location: 'Noida, India',
+      period: 'September 2023 - March 2024',
+      description: 'Designed and implemented backend infrastructure for mutual fund platform',
       achievements: [
-        'Built image classification model with 92% accuracy',
-        'Implemented sentiment analysis system for social media data',
-        'Created data pipeline processing 1M+ records daily',
-        'Contributed to open-source ML libraries'
+        'Built backend for Edhanam mutual fund platform serving Striment Technologies',
+        'Reduced API response times by 80% (from 3-4 seconds to under 800ms)',
+        'Implemented multi-layer caching mechanism with Redis and database indexing',
+        'Integrated StarMF APIs for fund discovery, NAV updates, and transaction processing'
       ],
-      tech: ['PyTorch', 'OpenCV', 'FastAPI', 'PostgreSQL']
-    },
-    {
-      hash: 'c9a1f44',
-      role: 'Research Assistant',
-      company: 'University AI Lab',
-      period: '2021 - 2022',
-      description: 'Conducted research in deep learning and neural architecture search',
-      achievements: [
-        'Published paper on efficient neural architecture search',
-        'Experimented with novel attention mechanisms',
-        'Developed custom PyTorch implementations',
-        'Mentored junior researchers'
-      ],
-      tech: ['PyTorch', 'NumPy', 'Pandas', 'Jupyter']
+      tech: ['Python', 'Flask', 'PostgreSQL', 'Redis', 'REST API', 'StarMF API']
     }
   ];
 

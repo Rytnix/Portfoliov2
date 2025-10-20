@@ -1,6 +1,10 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, FileText, MessageSquare, Sparkles } from 'lucide-react';
+import { X, Send, FileText, MessageSquare, Sparkles, Download, ZoomIn, ZoomOut } from 'lucide-react';
+import { Document, Page, pdfjs } from 'react-pdf';
+
+// Set up PDF.js worker using local file
+pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
 
 const ResumeChat = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState([
@@ -10,20 +14,55 @@ const ResumeChat = ({ isOpen, onClose }) => {
     }
   ]);
   const [input, setInput] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
-  const [genAiEndpoint] = useState('http://45.194.47.156:11434');
+  const [genAiEndpoint] = useState('https://45.194.47.156:11434');
   const [ollamaModel] = useState('mistral-nemo:latest');
+  
+  // PDF viewer state
+  const [numPages, setNumPages] = useState(null);
+  const [scale, setScale] = useState(1.1);
+  const [pdfError, setPdfError] = useState(false);
+
+  const onDocumentLoadSuccess = ({ numPages }) => {
+    setNumPages(numPages);
+    setPdfError(false);
+  };
+
+  const onDocumentLoadError = (error) => {
+    console.error('Error loading PDF:', error);
+    setPdfError(true);
+  };
+
+  const zoomIn = () => {
+    setScale(prevScale => Math.min(prevScale + 0.2, 2.0));
+  };
+
+  const zoomOut = () => {
+    setScale(prevScale => Math.max(prevScale - 0.2, 0.6));
+  };
+
+  const downloadPDF = () => {
+    const link = document.createElement('a');
+    link.href = '/UtkarshML.pdf';
+    link.download = 'Utkarsh_Yadav_Resume.pdf';
+    link.click();
+  };
+
+  // Memoize PDF options to prevent unnecessary reloads
+  const pdfOptions = useMemo(() => ({
+    cMapUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version}/cmaps/`,
+    cMapPacked: true,
+  }), []);
 
   // Predefined responses for common questions
   const predefinedResponses = {
-    skills: "Utkarsh is proficient in:\n\nAI & ML: Deep Learning, Neural Networks, Computer Vision, NLP, Reinforcement Learning\n\nML Frameworks: PyTorch, TensorFlow, Keras, Scikit-learn, HuggingFace, ONNX\n\nGen AI: LangChain, OpenAI API, Prompt Engineering, RAG Systems, Fine-tuning, Vector DBs\n\nLanguages: Python, Java, SQL, C++, Bash\n\nBackend: Spring Boot, FastAPI, Flask, REST APIs, Microservices, JPA/Hibernate\n\nData & Ops: Docker, Kubernetes, AWS, PostgreSQL, MongoDB, Git",
+    skills: "Utkarsh is proficient in:\n\n**Programming Languages**: Python, Java, C++, SQL, Bash\n\n**Frameworks & Libraries**: OpenCV, Scikit-learn, NLTK, SpaCy, TensorFlow, Keras, Flask, Springboot\n\n**Tools & Technologies**: Kubernetes, Docker, Git, PostgreSQL, MySQL, SQLite, LAMP Stack, N8N\n\n**Cloud Platforms**: AWS, Google Cloud Platform, IBM Cloud\n\n**Operating Systems**: Linux, Raspberry Pi, NVIDIA Jetson Nano",
     
-    experience: "Utkarsh Yadav is an SDE1 and ML/Gen AI Engineer with expertise in:\n\nBuilding intelligent systems using machine learning and deep learning\n\nDeveloping production-ready AI applications with RAG architecture\n\nCreating real-time sentiment analysis systems with 95%+ accuracy\n\nImplementing computer vision classifiers using transfer learning\n\nFine-tuning LLMs using LoRA and QLoRA techniques\n\nBuilding end-to-end MLOps pipelines with CI/CD\n\nHe's passionate about transforming ideas into intelligent solutions.",
+    experience: "**Proeffico Solutions Private Limited - Noida, India**\n\n**Software Development Engineer - ML & Gen AI** (March 2024 - Present)\n• Redesigned facial recognition pipeline reducing latency from 40+ seconds to under 1 second\n• Engineered Redis-based vector storage retrieving embeddings from 100K+ database in <200ms\n• Built production-grade REST APIs handling 1000+ daily requests with 99.5% uptime\n• Architected Gen AI document generator achieving 70% accuracy on technical specifications\n• Led cross-functional team of 5 engineers on Gen AI-powered solutions\n\n**Software Engineer Intern** (September 2023 - March 2024)\n• Built backend for Edhanam mutual fund platform serving Striment Technologies\n• Reduced API response times by 80% (from 3-4 seconds to under 800ms)\n• Implemented multi-layer caching mechanism with Redis and database indexing\n• Integrated StarMF APIs for fund discovery, NAV updates, and transaction processing",
     
-    projects: "Here are Utkarsh's notable projects:\n\n**Project 1: RAG-Powered AI Chatbot**\n• Role: Primary Developer & Architect\n• Tech Stack: LangChain, Pinecone/Weaviate, PyTorch/Transformers, FastAPI, Python\n• Achievements:\n  - Seamless integration of LangChain for interactive chat functionality\n  - Implemented vector databases (Pinecone/Weaviate) for efficient retrieval\n  - Fine-tuned and deployed as production-ready application using FastAPI\n\n**Project 2: Real-time Sentiment Analysis**\n• Role: ML Engineer & Developer\n• Tech Stack: PyTorch, Transformers, DistilBERT, Flask, Python\n• Achievements:\n  - Fine-tuned DistilBERT achieving 95%+ accuracy\n  - Built interactive dashboard with real-time visualizations\n  - Deployed scalable sentiment analysis API\n\n**Project 3: Computer Vision Classifier**\n• Role: AI Developer\n• Tech Stack: TensorFlow, Keras, EfficientNet, OpenCV, FastAPI\n• Achievements:\n  - Implemented transfer learning with EfficientNet architecture\n  - Applied model quantization for edge deployment\n  - Achieved high accuracy with optimized inference speed",
+    projects: "Here are Utkarsh's notable projects:\n\n**1. Symptom-to-Disease Prediction System** (Gen AI, 2025)\n• Tech Stack: Python, PyTorch, HuggingFace, Transfer Learning, Gen AI\n• Achievements:\n  - Hybrid AI architecture integrating ML with LLM reasoning for disease prediction\n  - Fine-tuned 3B parameter model for medical domain\n  - Achieved 50% accuracy improvement (60% to 90%)\n  - Created custom training dataset from medical literature\n  - Implemented personalized precautions and treatment suggestions\n\n**2. AI-Powered Trend Intelligence Platform** (Agentic AI, 2025)\n• Tech Stack: Python, Transformers, Web Scraping, Time-Series, NLP\n• Achievements:\n  - Automated web scraping processing 10,000+ daily data points\n  - Transformer-based topic categorization with 85% accuracy\n  - Time-series forecasting identifying trends 24-48 hours before mainstream\n  - Created dynamic dashboard with trend trajectories\n\n**3. Self-Hosted Research Paper Query System** (NLP, 2024)\n• Tech Stack: Python, LangChain, Vector DB, Open-source LLM, RAG\n• Achievements:\n  - Conversational AI for natural language querying of research papers\n  - Custom embedding pipeline with vector representations\n  - RAG architecture with section-level citations\n  - Local infrastructure without external API dependencies\n  - Reduced navigation time by 80%",
     
-    education: "While specific education details aren't provided in this portfolio, Utkarsh has demonstrated strong expertise in:\n\nMachine Learning & Deep Learning\nSoftware Development\nAI & Gen AI Technologies\nData Science & Analytics",
+    education: "**IIMT Engineering College, Meerut, India**\nBachelor of Technology in Computer Science Engineering\nGPA: 8.57/10.0\nJuly 2019 - June 2023",
     
     contact: "You can reach out to Utkarsh through:\n\nGitHub: Check out his projects and contributions\nLinkedIn: Connect professionally\nEmail: Send him a message\n\nNavigate to the Contact section below for more details!",
     
@@ -149,7 +188,6 @@ const ResumeChat = ({ isOpen, onClose }) => {
     setMessages(prev => [...prev, userMessage]);
     const currentInput = input;
     setInput('');
-    setIsTyping(true);
 
     // Add placeholder for streaming response
     setMessages(prev => [...prev, { role: 'assistant', content: '', streaming: true }]);
@@ -164,7 +202,6 @@ const ResumeChat = ({ isOpen, onClose }) => {
         // Check if question is resume-related first
         if (!isResumeRelated(currentInput)) {
           response = "I can only answer questions about Utkarsh's professional profile, skills, experience, projects, and contact information. Please ask something related to his professional background.";
-          setIsTyping(false);
           await simulateStreaming(response);
           return;
         }
@@ -182,47 +219,61 @@ IMPORTANT RULES:
 RESUME INFORMATION:
 
 Name: Utkarsh Yadav
-Role: SDE1 | ML/Gen AI Engineer
+Contact: +91-7007663578 | utkarshxp19@gmail.com | karsh.dev | github.com/Rytnix
 
-Availability:
-✅ Available for Full-Time roles
-✅ Available for Freelance projects
+Education:
+IIMT Engineering College, Meerut, India
+Bachelor of Technology in Computer Science Engineering
+GPA: 8.57/10.0 (July 2019 - June 2023)
 
 Skills:
-- AI & ML: Deep Learning, Neural Networks, Computer Vision, NLP, Reinforcement Learning
-- ML Frameworks: PyTorch, TensorFlow, Keras, Scikit-learn, HuggingFace, ONNX
-- Gen AI: LangChain, OpenAI API, Prompt Engineering, RAG Systems, Fine-tuning, Vector DBs
-- Languages: Python, Java, SQL, C++, Bash
-- Backend: Spring Boot, FastAPI, Flask, REST APIs, Microservices
-- DevOps: Docker, Kubernetes, AWS, Git
+- Programming Languages: Python, Java, C++, SQL, Bash
+- Frameworks & Libraries: OpenCV, Scikit-learn, NLTK, SpaCy, TensorFlow, Keras, Flask, Springboot
+- Tools & Technologies: Kubernetes, Docker, Git, PostgreSQL, MySQL, SQLite, LAMP Stack, N8N
+- Cloud Platforms: AWS, Google Cloud Platform, IBM Cloud
+- Operating Systems: Linux, Raspberry Pi, NVIDIA Jetson Nano
 
-Experience: SDE1 and ML/Gen AI Engineer specializing in building intelligent systems, RAG architectures, fine-tuning LLMs, creating sentiment analysis systems with 95%+ accuracy
+Professional Experience:
+
+1. Proeffico Solutions Private Limited, Noida (March 2024 - Present)
+   Software Development Engineer - ML & Gen AI
+   - Redesigned facial recognition pipeline reducing latency from 40+ seconds to under 1 second
+   - Engineered Redis-based vector storage retrieving embeddings from 100K+ database in <200ms
+   - Built production-grade REST APIs handling 1000+ daily requests with 99.5% uptime
+   - Architected Gen AI document generator achieving 70% accuracy on technical specifications
+   - Led cross-functional team of 5 engineers on Gen AI-powered solutions
+
+2. Proeffico Solutions Private Limited, Noida (September 2023 - March 2024)
+   Software Engineer Intern
+   - Built backend for Edhanam mutual fund platform serving Striment Technologies
+   - Reduced API response times by 80% (from 3-4 seconds to under 800ms)
+   - Implemented multi-layer caching with Redis and database indexing
+   - Integrated StarMF APIs for fund discovery and transaction processing
 
 Projects:
 
-Project 1: RAG-Powered AI Chatbot
-• Role: Primary Developer & Architect
-• Tech Stack: LangChain, Pinecone/Weaviate, PyTorch/Transformers, FastAPI, Python
-• Achievements:
-  - Seamless LangChain integration for interactive chat
-  - Implemented vector databases for efficient retrieval
-  - Production-ready deployment with FastAPI
+1. Symptom-to-Disease Prediction System (Gen AI, 2025)
+   Tech Stack: Python, PyTorch, HuggingFace, Transfer Learning
+   - Hybrid AI architecture integrating ML with LLM reasoning
+   - Fine-tuned 3B parameter model for medical domain
+   - Achieved 50% accuracy improvement (60% to 90%)
+   - Created custom training dataset from medical literature
+   - Implemented personalized precautions and treatment suggestions
 
-Project 2: Real-time Sentiment Analysis
-• Role: ML Engineer & Developer
-• Tech Stack: PyTorch, Transformers, DistilBERT, Flask, Python
-• Achievements:
-  - Fine-tuned DistilBERT with 95%+ accuracy
-  - Interactive real-time dashboard
-  - Scalable sentiment analysis API
+2. AI-Powered Trend Intelligence Platform (Agentic AI, 2025)
+   Tech Stack: Python, Transformers, Web Scraping, Time-Series, NLP
+   - Automated web scraping processing 10,000+ daily data points
+   - Transformer-based topic categorization with 85% accuracy
+   - Time-series forecasting identifying trends 24-48 hours before mainstream
+   - Created dynamic dashboard with trend trajectories
 
-Project 3: Computer Vision Classifier
-• Role: AI Developer
-• Tech Stack: TensorFlow, Keras, EfficientNet, OpenCV, FastAPI
-• Achievements:
-  - Transfer learning with EfficientNet
-  - Model quantization for edge deployment
-  - Optimized inference speed
+3. Self-Hosted Research Paper Query System (NLP, 2024)
+   Tech Stack: Python, LangChain, Vector DB, Open-source LLM, RAG
+   - Built conversational AI for natural language querying of research papers
+   - Engineered custom embedding pipeline with vector representations
+   - Implemented RAG architecture with section-level citations
+   - Deployed on local infrastructure without external APIs
+   - Reduced navigation time by 80%
 
 Remember: Stay strictly within Utkarsh's professional context. If asked unrelated questions, politely redirect without listing what you cannot discuss.`;
 
@@ -253,7 +304,6 @@ Remember: Stay strictly within Utkarsh's professional context. If asked unrelate
         });
         
         if (res.ok) {
-          setIsTyping(false);
           const reader = res.body.getReader();
           const decoder = new TextDecoder();
           let fullResponse = '';
@@ -310,7 +360,6 @@ Remember: Stay strictly within Utkarsh's professional context. If asked unrelate
       response = findBestMatch(currentInput);
     }
 
-    setIsTyping(false);
     await simulateStreaming(response);
   };
 
@@ -360,19 +409,102 @@ Remember: Stay strictly within Utkarsh's professional context. If asked unrelate
           </div>
 
           <div className="flex-grow flex overflow-hidden">
-            {/* Left side - Resume PDF placeholder */}
-            <div className="w-1/2 border-r-2 border-gray-200 p-6 overflow-y-auto bg-gray-50">
-              <div className="terminal-window h-full">
-                <div className="terminal-header">
-                  <div className="terminal-button red"></div>
-                  <div className="terminal-button yellow"></div>
-                  <div className="terminal-button green"></div>
-                  <span className="text-cream-100 text-xs ml-2 flex items-center gap-1">
-                    <FileText className="w-3 h-3" />
-                    utkarsh_resume.pdf
-                  </span>
+            {/* Left side - Resume PDF viewer */}
+            <div className="w-1/2 border-r-2 border-gray-200 bg-gray-50 flex flex-col">
+              <div className="h-full flex flex-col">
+                {/* PDF Header with controls */}
+                <div className="bg-charcoal-900 px-4 py-3 flex items-center justify-between border-b-2 border-gray-200">
+                  <div className="flex items-center gap-2">
+                    <FileText className="w-4 h-4 text-electric" />
+                    <span className="text-cream-100 text-sm font-mono">UtkarshML.pdf</span>
+                    {numPages && (
+                      <span className="text-xs text-gray-400 font-mono ml-2">
+                        {numPages} {numPages === 1 ? 'page' : 'pages'}
+                      </span>
+                    )}
+                  </div>
+                  
+                  {/* PDF Controls */}
+                  <div className="flex items-center gap-2">
+                    {/* Zoom Controls */}
+                    <button
+                      onClick={zoomOut}
+                      className="p-1.5 hover:bg-gray-700 rounded transition-colors"
+                      title="Zoom Out"
+                    >
+                      <ZoomOut className="w-4 h-4 text-cream-100" />
+                    </button>
+                    <span className="text-xs text-cream-100 font-mono min-w-[45px] text-center">
+                      {Math.round(scale * 100)}%
+                    </span>
+                    <button
+                      onClick={zoomIn}
+                      className="p-1.5 hover:bg-gray-700 rounded transition-colors"
+                      title="Zoom In"
+                    >
+                      <ZoomIn className="w-4 h-4 text-cream-100" />
+                    </button>
+                    
+                    <div className="w-px h-5 bg-gray-600 mx-1"></div>
+                    
+                    {/* Download Button */}
+                    <button
+                      onClick={downloadPDF}
+                      className="p-1.5 hover:bg-electric hover:text-charcoal-900 rounded transition-colors"
+                      title="Download Resume"
+                    >
+                      <Download className="w-4 h-4 text-cream-100 hover:text-charcoal-900" />
+                    </button>
+                  </div>
                 </div>
-                <div className="p-8 space-y-6 overflow-y-auto max-h-[calc(85vh-200px)]">
+
+                {/* PDF Viewer - All pages scrollable */}
+                <div className="flex-grow overflow-auto bg-gray-100 py-4">
+                  {!pdfError ? (
+                    <div className="flex flex-col items-center gap-4">
+                      <Document
+                        file="/UtkarshML.pdf"
+                        onLoadSuccess={onDocumentLoadSuccess}
+                        onLoadError={onDocumentLoadError}
+                        options={pdfOptions}
+                        loading={
+                          <div className="flex items-center justify-center min-h-[500px]">
+                            <div className="text-center">
+                              <div className="w-12 h-12 border-4 border-electric border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                              <p className="text-sm text-gray-600 font-mono">Loading Resume PDF...</p>
+                            </div>
+                          </div>
+                        }
+                        error={
+                          <div className="flex items-center justify-center min-h-[500px]">
+                            <div className="text-center bg-red-50 p-8 rounded-lg border-2 border-red-200">
+                              <p className="text-red-600 font-mono mb-2">⚠️ Failed to load PDF</p>
+                              <button
+                                onClick={downloadPDF}
+                                className="px-4 py-2 bg-electric text-white rounded hover:bg-charcoal-900 transition-colors font-mono text-sm mt-4"
+                              >
+                                Download PDF Instead
+                              </button>
+                            </div>
+                          </div>
+                        }
+                        className="flex flex-col items-center gap-4"
+                      >
+                        {/* Render all pages */}
+                        {Array.from(new Array(numPages), (el, index) => (
+                          <Page
+                            key={`page_${index + 1}`}
+                            pageNumber={index + 1}
+                            scale={scale}
+                            renderTextLayer={false}
+                            renderAnnotationLayer={false}
+                            className="border border-gray-300 shadow-xl bg-white"
+                          />
+                        ))}
+                      </Document>
+                    </div>
+                  ) : (
+                    <div className="p-8 space-y-6 overflow-y-auto max-h-[calc(85vh-200px)]">
                   {/* Resume Content Preview */}
                   <div className="font-mono text-sm space-y-6">
                     <div>
@@ -392,35 +524,56 @@ Remember: Stay strictly within Utkarsh's professional context. If asked unrelate
                     </div>
 
                     <div>
+                      <h4 className="text-lg font-bold text-charcoal-900 mb-2 border-b border-electric pb-1">EXPERIENCE</h4>
+                      <div className="space-y-3 text-xs">
+                        <div>
+                          <p className="font-bold text-charcoal-900">Software Development Engineer - ML & Gen AI</p>
+                          <p className="text-neon-purple">Proeffico Solutions • March 2024 - Present</p>
+                          <p className="text-charcoal-800 mt-1">• Facial recognition: 40s to 1s latency • Redis vector storage under 200ms • 1000+ daily requests</p>
+                        </div>
+                        <div>
+                          <p className="font-bold text-charcoal-900">Software Engineer Intern</p>
+                          <p className="text-neon-purple">Proeffico Solutions • Sept 2023 - March 2024</p>
+                          <p className="text-charcoal-800 mt-1">• Mutual fund platform backend • 80% faster APIs • Redis caching & indexing</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
                       <h4 className="text-lg font-bold text-charcoal-900 mb-2 border-b border-electric pb-1">PROJECTS</h4>
                       <div className="space-y-4 text-xs">
                         <div>
-                          <p className="font-bold text-charcoal-900">RAG-Powered AI Chatbot</p>
-                          <p className="text-neon-purple">Role: Primary Developer & Architect</p>
-                          <p className="text-charcoal-800">Tech: LangChain, Pinecone/Weaviate, PyTorch, FastAPI</p>
-                          <p className="text-charcoal-800 mt-1">• LangChain integration • Vector databases • Production deployment</p>
+                          <p className="font-bold text-charcoal-900">Self-Hosted Research Paper Query System</p>
+                          <p className="text-neon-purple">NLP Developer (2024)</p>
+                          <p className="text-charcoal-800">Tech: Python, LangChain, Vector DB, RAG</p>
+                          <p className="text-charcoal-800 mt-1">• Conversational AI • Custom embeddings • 80% faster navigation</p>
                         </div>
                         <div>
-                          <p className="font-bold text-charcoal-900">Real-time Sentiment Analysis</p>
-                          <p className="text-neon-purple">Role: ML Engineer & Developer</p>
-                          <p className="text-charcoal-800">Tech: PyTorch, DistilBERT, Flask</p>
-                          <p className="text-charcoal-800 mt-1">• 95%+ accuracy • Real-time dashboard • Scalable API</p>
+                          <p className="font-bold text-charcoal-900">LLM Fine-tuning Framework</p>
+                          <p className="text-neon-purple">Gen AI Developer (2025)</p>
+                          <p className="text-charcoal-800">Tech: PyTorch, HuggingFace, LoRA</p>
+                          <p className="text-charcoal-800 mt-1">• Medical diagnosis • 60% to 90% accuracy • 3B parameter model</p>
                         </div>
-                        <div>
-                          <p className="font-bold text-charcoal-900">Computer Vision Classifier</p>
-                          <p className="text-neon-purple">Role: AI Developer</p>
-                          <p className="text-charcoal-800">Tech: TensorFlow, EfficientNet, OpenCV</p>
-                          <p className="text-charcoal-800 mt-1">• Transfer learning • Edge deployment • Optimized inference</p>
-                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="text-lg font-bold text-charcoal-900 mb-2 border-b border-electric pb-1">EDUCATION</h4>
+                      <div className="text-xs">
+                        <p className="font-bold text-charcoal-900">IIMT Engineering College, Meerut</p>
+                        <p className="text-charcoal-800">B.Tech in Computer Science • GPA: 8.57/10.0</p>
+                        <p className="text-neon-purple">July 2019 - June 2023</p>
                       </div>
                     </div>
 
                     <div className="pt-4 border-t border-charcoal-800/20">
                       <p className="text-xs text-charcoal-800 italic">
-                        💡 Ask the AI assistant about any section for detailed information
+                        💡 PDF failed to load. Ask the AI assistant about any section for detailed information
                       </p>
                     </div>
                   </div>
+                </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -453,17 +606,6 @@ Remember: Stay strictly within Utkarsh's professional context. If asked unrelate
                     </div>
                   </motion.div>
                 ))}
-                {isTyping && (
-                  <div className="flex justify-start">
-                    <div className="bg-gray-100 text-charcoal-900 p-4 rounded-lg border-l-4 border-gray-400">
-                      <div className="flex gap-1">
-                        <span className="w-2 h-2 bg-electric rounded-full animate-bounce"></span>
-                        <span className="w-2 h-2 bg-electric rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></span>
-                        <span className="w-2 h-2 bg-electric rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></span>
-                      </div>
-                    </div>
-                  </div>
-                )}
                 <div ref={messagesEndRef} />
               </div>
 

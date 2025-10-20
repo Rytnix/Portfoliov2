@@ -120,7 +120,7 @@ const Navigation = () => {
                       handleClick(item.href, item.isSection);
                     }}
                     whileHover={{ y: -2 }}
-                    className={`px-4 py-2 font-mono text-sm transition-all duration-300 rounded relative group ${
+                    className={`px-4 py-2 font-mono text-sm transition-all duration-300 rounded relative ${
                       isActive
                         ? 'text-electric font-semibold'
                         : 'text-charcoal-800 hover:text-electric'
@@ -134,10 +134,6 @@ const Navigation = () => {
                         transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                       />
                     )}
-                    {/* Tooltip */}
-                    <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-charcoal-900 text-cream-100 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                      {item.command}
-                    </span>
                   </motion.a>
                 );
               })}

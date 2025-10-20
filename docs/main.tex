@@ -1,0 +1,255 @@
+%------------------------
+% ATS-Friendly Resume Template
+% Optimized for ATS parsing with attractive styling
+%------------------------
+
+\documentclass[a4paper,11pt]{article}
+\setlength{\footskip}{4.08003pt}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[pdftex]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[charter]{mathdesign}
+\usepackage{xcolor}
+
+% Remove boxes around links
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,
+    urlcolor=black,
+}
+% Define custom colors
+\definecolor{primaryblue}{RGB}{0, 102, 204}
+\definecolor{accentpurple}{RGB}{102, 51, 153}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins for ATS
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting - Blue/Purple headers
+\titleformat{\section}{
+  \vspace{-8pt}\scshape\raggedright\large\color{primaryblue}
+}{}{0em}{}[\color{accentpurple}\titlerule \vspace{-5pt}]
+
+% Custom commands
+\newcommand{\resumeItem}[2]{
+  \item\small{
+    \textbf{#1}{: #2 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \textbf{#2} \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
+
+\renewcommand{\labelitemii}{$\circ$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.15in]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-----------------------------
+%%%%%%  CV STARTS HERE  %%%%%%
+
+\begin{document}
+
+%----------HEADING-----------------
+\begin{center}
+    % \textbf{\Huge \color{primaryblue} Utkarsh Yadav} \\ \vspace{5pt}
+    {\fontsize{35}{40}\selectfont\textbf{\color{primaryblue} Utkarsh Yadav}} \\[5pt]
+    \small \href{tel:+917007663578}{+91-7007663578} $|$
+    \href{mailto:utkarshxp19@gmail.com}{utkarshxp19@gmail.com} $|$ 
+    \href{https://karsh.dev}{karsh.dev} $|$
+    \href{https://github.com/Rytnix}{github.com/Rytnix}
+\end{center}
+
+%-----------EDUCATION-----------------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {IIMT Engineering College}{Meerut, India}
+      {Bachelor of Technology in Computer Science Engineering, GPA: 8.57/10.0}{July 2019 -- June 2023}
+  \resumeSubHeadingListEnd
+
+%-----------TECHNICAL SKILLS-----------------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Programming Languages}{: Python, Java, C++, SQL, Bash} \\
+     \textbf{Frameworks \& Libraries}{: OpenCV, Scikit-learn, NLTK, SpaCy, TensorFlow, Keras, Flask, Springboot} \\
+     \textbf{Tools \& Technologies}{: Kubernetes, Docker, Git, PostgreSQL, MySQL, SQLite, LAMP Stack, N8N } \\
+     \textbf{Cloud Platforms}{: AWS, Google Cloud Platform, IBM Cloud} \\
+     \textbf{Operating Systems}{: Linux, Raspberry Pi, NVIDIA Jetson Nano}
+    }}
+ \end{itemize}
+
+%-----------PROFESSIONAL EXPERIENCE-----------------
+\section{Professional Experience}
+  \resumeSubHeadingListStart
+  
+    \resumeSubheading
+      {Proeffico Solutions Private Limited}{Noida, India}
+      {Software Development Engineer - ML \& Gen AI}{March 2024 -- Present}
+      \resumeItemListStart
+        \resumeItem{Facial Recognition System Optimization}
+          {Redesigned live facial recognition pipeline processing RTSP video streams, reducing latency from 40+ seconds to under 1 second through architectural improvements and parallel processing implementation}
+        \resumeItem{High-Performance Embedding Retrieval}
+          {Engineered Redis-based vector storage system retrieving facial embeddings from 100K+ database in under 200ms, implementing efficient indexing and caching strategies for real-time identification}
+        \resumeItem{Anti-Spoofing Integration}
+          {Developed and integrated liveness detection module for video and photo inputs, preventing spoofing attacks and enhancing system security for client authentication workflows}
+        \resumeItem{Computer Vision API Development}
+          {Built production-grade REST APIs for facial recognition, demographic analysis, and biometric verification, handling 1000+ daily requests with 99.5\% uptime}
+        \resumeItem{Gen AI Document Generation System}
+          {Architected self-hosted solution blueprint generator for Oman-based client, fine-tuning model on RSD documentation to achieve 70\% accuracy in generating technical specification documents}
+        \resumeItem{Team Leadership \& Innovation}
+          {Led cross-functional team of 5 engineers, proposing and implementing Gen AI-powered fire detection system and sentiment analysis automation }
+        \resumeItem{Real-Time Video Intelligence}
+          {Currently developing CCTV video frame analysis agent enabling natural language querying of live surveillance feeds for security and monitoring applications}
+      \resumeItemListEnd
+      
+    \resumeSubheading
+      {Proeffico Solutions Private Limited}{Noida, India}
+      {Software Engineer Intern}{September 2023 -- March 2024}
+      \resumeItemListStart
+        \resumeItem{Mutual Fund Platform Backend}
+          {Designed and implemented backend infrastructure for Edhanam mutual fund platform serving Striment Technologies, integrating StarMF API for real-time fund data and transaction processing}
+        \resumeItem{API Performance Optimization}
+          {Reduced mutual fund API response times by 80\% (from 3-4 seconds to under 800ms) through database query optimization, Redis caching implementation, and connection pooling strategies}
+        \resumeItem{Database Architecture}
+          {Implemented multi-layer caching mechanism and database indexing strategies, significantly improving query performance for high-frequency fund data retrieval operations}
+        \resumeItem{Third-Party Integration}
+          {Successfully integrated StarMF APIs handling fund discovery, NAV updates, transaction processing, and portfolio management for seamless client experience}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+%-----------PROJECTS (DETAILED VERSION - OPTIONAL EXTENDED SECTION)-----------------
+\section{Projects \& Technical Implementations}
+  \resumeSubHeadingListStart
+  
+    \resumeSubheading
+      {Symptom-to-Disease Prediction System}{Personal Project}
+      {Gen AI}{2025}
+      \resumeItemListStart
+        \resumeItem{Hybrid AI Architecture}
+          {Designed two-stage pipeline integrating traditional ML classification with large language model reasoning layer to analyze symptoms and generate disease predictions with explanatory context}
+        \resumeItem{Model Optimization}
+          {Fine-tuned 3B parameter open-source language model for medical domain, creating custom training dataset through data augmentation and medical literature extraction}
+        \resumeItem{Performance Enhancement}
+          {Achieved 50\% accuracy improvement (60\% baseline to 90\% post-training) through systematic dataset curation, hyperparameter tuning, and transfer learning techniques}
+        \resumeItem{Clinical Recommendations}
+          {Implemented contextual reasoning system generating personalized precautions and treatment suggestions based on predicted conditions and patient symptom profiles}
+          
+      \resumeItemListEnd
+    \resumeSubheading
+      {AI-Powered Trend Intelligence Platform}{Personal Project}
+      {Agentic AI}{2025}
+      \resumeItemListStart
+        \resumeItem{Data Collection Pipeline}
+          {Architected automated web scraping system extracting real-time content from social media platforms and news sources, processing 10,000+ daily data points}
+        \resumeItem{NLP Classification Engine}
+          {Implemented transformer-based topic categorization using pre-trained embeddings to classify content across multiple domains with 85\% accuracy}
+        \resumeItem{Predictive Analytics}
+          {Developed time-series forecasting model analyzing engagement metrics and growth patterns to identify trending topics 24-48 hours before mainstream adoption}
+        \resumeItem{Interactive Visualization}
+          {Created dynamic dashboard displaying trend trajectories, category distributions, and prediction confidence scores }
+      \resumeItemListEnd
+      
+    \resumeSubheading
+      {Self-Hosted Research Paper Query System}{Portfolio Enhancement}
+      {NLP }{2024}
+      \resumeItemListStart
+        \resumeItem{Document Intelligence Agent}
+          {Built conversational AI system enabling natural language querying across research paper collection, eliminating need for manual document review}
+        \resumeItem{Vector Database Implementation}
+          {Engineered custom embedding pipeline transforming research papers into vector representations stored in local vector database, ensuring complete data privacy}
+        \resumeItem{Semantic Search Engine}
+          {Implemented retrieval-augmented generation (RAG) architecture providing accurate answers with section-level citations and contextual excerpts}
+        \resumeItem{Self-Hosted Infrastructure}
+          {Deployed entirely on local infrastructure without external API dependencies, utilizing open-source LLM and embedding models for complete autonomy}
+        \resumeItem{User Experience}
+          {Integrated chatbot interface into portfolio website, reducing research paper navigation time by 80\% and improving visitor engagement}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------PUBLICATIONS-----------------
+\section{Publications \& Technical Documentation}
+  \resumeSubHeadingListStart
+  
+    \resumeSubItem{Scalable Facial Recognition Architecture for Large-Scale Surveillance Systems}
+      {Authored comprehensive technical documentation on designing and implementing distributed facial recognition infrastructure supporting 1,000+ concurrent RTSP camera streams. Detailed multi-threading and multi-processing strategies, load balancing techniques, and real-time processing optimization. Published in Proeffico Solutions internal engineering documentation (2025)}
+      
+  \resumeSubHeadingListEnd
+
+%-----------ACHIEVEMENTS & COMPETITIVE PROGRAMMING-----------------
+\section{Achievements \& Competitive Programming}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Open Source Contributions (2023)}: Contributed optimized Travelling Salesman Problem algorithm to open-source repository using dynamic programming techniques \\
+     
+     \textbf{LeetCode Profile}: Rating 1453 with 150+ algorithmic problems solved across data structures, algorithms, and system design \\
+     
+     \textbf{MesoHacks Hackathon (2022)}: Secured Top 10 position among 2,500+ participants in national-level hackathon \\
+     
+     \textbf{Get-Set Hack by RISE (2022)}: Ranked 50th among 22,000+ participants in competitive coding hackathon \\
+     
+     \textbf{CodeChef October Long Challenge (2022)}: Achieved Global Rank 231 out of 10,000+ participants (Top 2\%) \\
+     
+     \textbf{CodeChef August Long Challenge (2022)}: Achieved Global Rank 591 out of 10,000+ participants (Top 3\%)
+    }}
+ \end{itemize}
+
+%-----------LEADERSHIP & STRATEGIC INITIATIVES-----------------
+\section{Leadership \& Strategic Initiatives}
+  \resumeSubHeadingListStart
+  
+    \resumeSubheading
+      {ML \& Gen AI Team Lead}{Proeffico Solutions Private Limited}
+      {Leading Cross-Functional Engineering Team}{March 2024 -- Present}
+      \resumeItemListStart
+        \resumeItem{Team Management}
+          {Lead team of 5 engineers across machine learning, computer vision, and generative AI projects, coordinating sprint planning, code reviews, and technical architecture decisions}
+        \resumeItem{Client-Focused Innovation - CSI Analytics}
+          {Proposed region-based Customer Staff Interaction (CSI) monitoring system leveraging computer vision to capture actionable insights from customer-staff engagements across retail locations, enabling data-driven service improvement strategies}
+        \resumeItem{Security Guard Monitoring Solution}
+          {Designed automated guard activity detection system identifying sleeping or inattentive behavior through pose estimation and behavioral pattern analysis, reducing security incidents and improving workplace safety compliance}
+        \resumeItem{Gen AI Fire Detection Pipeline}
+          {Architected two-stage fire detection confirmation system combining traditional computer vision with generative AI verification layer, reducing false positives by 85\% while maintaining real-time response capabilities}
+        \resumeItem{Strategic Product Development}
+          {Identified market gaps and proposed AI-driven solutions resulting in three new product offerings, directly contributing to client acquisition and revenue growth}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+
+
+
+\end{document}

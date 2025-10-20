@@ -10,94 +10,49 @@ const Projects = () => {
 
   const projects = [
     {
-      name: 'ai_chatbot_rag.py',
-      title: 'RAG-Powered AI Chatbot',
-      role: 'Primary Developer & Architect',
-      description: 'Production-ready chatbot using Retrieval Augmented Generation for accurate, context-aware responses',
+      name: 'symptom_disease_prediction.py',
+      title: 'Symptom-to-Disease Prediction System',
+      role: 'Gen AI Developer',
+      description: 'Hybrid AI architecture integrating traditional ML with LLM reasoning to analyze symptoms and generate disease predictions with explanatory context',
       achievements: [
-        'Seamless integration of LangChain for interactive chat functionality',
-        'Implemented vector databases (Pinecone/Weaviate) for efficient retrieval and storage',
-        'Fine-tuned and deployed as production-ready application using FastAPI',
-        'Built multi-document ingestion pipeline for diverse data sources'
+        'Fine-tuned 3B parameter open-source language model for medical domain',
+        'Achieved 50% accuracy improvement (60% to 90%) through systematic dataset curation and hyperparameter tuning',
+        'Created custom training dataset through data augmentation and medical literature extraction',
+        'Implemented contextual reasoning generating personalized precautions and treatment suggestions'
       ],
-      tech: ['Python', 'LangChain', 'Pinecone/Weaviate', 'PyTorch', 'FastAPI', 'Docker'],
+      tech: ['Python', 'PyTorch', 'HuggingFace', 'Transfer Learning', 'Gen AI', 'NLP'],
       demo: '#',
       github: '#',
       color: 'electric'
     },
     {
-      name: 'sentiment_analyzer.py',
-      title: 'Real-time Sentiment Analysis',
-      role: 'ML Engineer & Developer',
-      description: 'Fine-tuned BERT model for multi-class sentiment analysis with 95%+ accuracy',
+      name: 'trend_intelligence.py',
+      title: 'AI-Powered Trend Intelligence Platform',
+      role: 'Agentic AI Developer',
+      description: 'Automated web scraping and NLP system identifying trending topics 24-48 hours before mainstream adoption',
       achievements: [
-        'Fine-tuned DistilBERT achieving 95%+ accuracy on custom dataset',
-        'Built real-time inference API with low-latency responses',
-        'Created interactive dashboard with real-time visualizations',
-        'Implemented batch processing for handling large-scale datasets'
+        'Architected automated web scraping system processing 10,000+ daily data points from social media and news sources',
+        'Implemented transformer-based topic categorization with 85% accuracy across multiple domains',
+        'Developed time-series forecasting model analyzing engagement metrics and growth patterns',
+        'Created dynamic dashboard displaying trend trajectories and prediction confidence scores'
       ],
-      tech: ['PyTorch', 'Transformers', 'DistilBERT', 'Flask', 'React', 'MongoDB'],
+      tech: ['Python', 'Transformers', 'Web Scraping', 'Time-Series', 'NLP', 'Data Visualization'],
       demo: '#',
       github: '#',
       color: 'neon-purple'
     },
     {
-      name: 'image_classifier.py',
-      title: 'Computer Vision Classifier',
-      role: 'AI Developer',
-      description: 'Transfer learning-based image classification system for custom object detection',
+      name: 'research_paper_rag.py',
+      title: 'Self-Hosted Research Paper Query System',
+      role: 'NLP Developer',
+      description: 'Built conversational AI system enabling natural language querying across research paper collection with complete data privacy',
       achievements: [
-        'Implemented transfer learning with EfficientNet architecture and custom head',
-        'Developed comprehensive data augmentation pipeline',
-        'Applied model quantization for efficient edge deployment',
-        'Built REST API with automated image preprocessing'
+        'Engineered custom embedding pipeline transforming research papers into vector representations',
+        'Implemented retrieval-augmented generation (RAG) architecture with section-level citations',
+        'Deployed entirely on local infrastructure without external API dependencies',
+        'Integrated chatbot interface reducing research paper navigation time by 80%'
       ],
-      tech: ['TensorFlow', 'Keras', 'EfficientNet', 'OpenCV', 'FastAPI', 'AWS S3'],
-      demo: '#',
-      github: '#',
-      color: 'neon'
-    },
-    {
-      name: 'llm_finetuning.py',
-      title: 'LLM Fine-tuning Framework',
-      description: 'Efficient fine-tuning framework for LLMs using LoRA and QLoRA techniques',
-      features: [
-        'Parameter-efficient fine-tuning with LoRA',
-        'Multi-GPU training support',
-        'Automated hyperparameter tuning',
-        'Model evaluation and comparison tools'
-      ],
-      tech: ['Python', 'PyTorch', 'HuggingFace', 'WandB', 'PEFT'],
-      demo: '#',
-      github: '#',
-      color: 'electric'
-    },
-    {
-      name: 'ml_pipeline.py',
-      title: 'MLOps Pipeline',
-      description: 'End-to-end ML pipeline with experiment tracking, model versioning, and automated deployment',
-      features: [
-        'MLflow for experiment tracking',
-        'DVC for data versioning',
-        'CI/CD with GitHub Actions',
-        'Automated model monitoring and retraining'
-      ],
-      tech: ['Python', 'MLflow', 'DVC', 'Docker', 'Kubernetes'],
-      demo: '#',
-      github: '#',
-      color: 'neon-purple'
-    },
-    {
-      name: 'neural_style_transfer.py',
-      title: 'Neural Style Transfer',
-      description: 'Real-time artistic style transfer using convolutional neural networks',
-      features: [
-        'VGG19-based style transfer',
-        'Real-time video processing',
-        'Custom style training',
-        'Interactive web interface'
-      ],
-      tech: ['PyTorch', 'OpenCV', 'Streamlit', 'NumPy'],
+      tech: ['Python', 'LangChain', 'Vector DB', 'Open-source LLM', 'RAG', 'NLP'],
       demo: '#',
       github: '#',
       color: 'neon'
